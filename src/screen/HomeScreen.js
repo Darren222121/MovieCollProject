@@ -3,7 +3,11 @@ import {View, Text, StyleSheet, FlatList, Image} from 'react-native';
 import {movieData} from '../../data/MovieData';
 import { ShowMovie } from '../components/MovieComponent';
 import { useEffect, useState } from 'react';
+import { ButtonComponent } from '../components/ButtonComponent';
 
+<ButtonComponent
+   onPress={() => NavigationActivation.navigate('DetailMovie')}
+/>
 
 const HomeScreen = () => {
     const [recommended, setRecommended] = useState()
@@ -94,6 +98,11 @@ const HomeScreen = () => {
                             </View>
                             <Text>{item.rating}</Text>
                         </View>
+                        <View>
+                            onPress={() =>
+                            navigation.navigate("DetailMovie", {item})
+                            }
+                    </View>
                     </View>
 
                 )
