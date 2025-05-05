@@ -5,9 +5,7 @@ import { ShowMovie } from '../components/MovieComponent';
 import { useEffect, useState } from 'react';
 import { ButtonComponent } from '../components/ButtonComponent';
 
-<ButtonComponent
-   onPress={() => NavigationActivation.navigate('DetailMovie')}
-/>
+
 
 const HomeScreen = () => {
     const [recommended, setRecommended] = useState()
@@ -67,7 +65,8 @@ const HomeScreen = () => {
                             }>{item.title}</Text>
                             <View style = {styles.yearContainer}>
                                 <Text>{item.year}</Text>
-                               {item.rating === 5 ?
+                               {
+                               item.rating === 5 ?
                                 <Image 
                                 style = {styles.star}
                                 source={require('../../assets/images/images/five-stars.png')}
@@ -99,9 +98,9 @@ const HomeScreen = () => {
                             <Text>{item.rating}</Text>
                         </View>
                         <View>
-                            onPress={() =>
-                            navigation.navigate("DetailMovie", {item})
-                            }
+                        <ButtonComponent
+                            onPress={() => NavigationActivation.navigate('DetailMovie')}
+                        />
                     </View>
                     </View>
 
