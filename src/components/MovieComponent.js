@@ -7,7 +7,7 @@ export const ShowMovie = (props) => {
     const numberWithCommas = (number) => {
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     };
-
+   
     return(
         <View style = {
             styles.horizontalDataContainer
@@ -49,6 +49,52 @@ export const ShowMovie = (props) => {
 
     )
 };
+export const MovieExplanation = (props) => {
+    const {name, value, isRating, rating} = props;
+    return(
+        <View style = {styles.mainContainer}>
+            <View style = {styles.nameContainer}>
+                <Text style = {styles.generalFontSize}>{name}</Text>
+            </View>
+            <Text style = {styles.generalFontSize}>: </Text>
+            <View style= {styles.valueContainer}>
+                {
+                    isRating ?
+                     rating === 5?
+                     <Image
+                     style = {styles.ratingImage}
+                     source={require('path')}
+                     />
+                     :
+                     rating === 4?
+                     <Image
+                     style = {styles.ratingImage}
+                     source={require('path')}
+                     />
+                     : rating === 3?
+                     <Image
+                     style = {styles.ratingImage}
+                     source={require('path')}
+                     />
+                     : rating === 2?
+                     <Image
+                     style = {styles.ratingImage}
+                     source={require('path')}
+                     />
+                     :
+                     <Image
+                     style = {styles.ratingImage}
+                     source={require('path')}
+                     />
+                     :
+                     <Text style = {styles.textValue}>{value}</Text>
+                     
+                }
+            </View>
+        </View>
+    )
+
+};
 const styles = StyleSheet.create({
     horizontalDataContainer: {
         margin: 8,
@@ -79,5 +125,26 @@ const styles = StyleSheet.create({
     },
     viewersText: {
         marginLeft: 8
-    }
+    },
+    mainContainer: {
+        flexDirection: 'row',
+        margin: 8
+    },
+    nameContainer: {
+    flex: 0
+    },
+    generalFontSize: {
+        fontSize: 16
+    },
+    valueContainer: {
+        flex: 0
+    },
+    textValue: {
+        textAlign: "justify",
+        fontSize: 16
+    },
+    ratingImage: {
+        width: 100,
+        height: 20
+    },
 });
