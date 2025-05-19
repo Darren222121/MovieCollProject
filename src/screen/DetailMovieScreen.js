@@ -5,15 +5,15 @@ import { MovieExplanation } from '../components/MovieComponent';
 
 const DetailMovieScreen = (props) => {
     const{route} = props;
-    const {title, year} = route.params
+    // const {title, year} = route.params;
     const movie = route.params.item;
     const numberWithCommas = (number) => {
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     };
-    useEffect(() => {
-        console.log(title);
-        console.log(year);
-    }, []);
+    // useEffect(() => {
+    //     console.log(title);
+    //     console.log(year);
+    // }, []);
     return(
        <View style = {styles.mainContainer}>
         <ScrollView>
@@ -42,11 +42,11 @@ const DetailMovieScreen = (props) => {
             />
             <MovieExplanation
             name="viewers"
-            value={movie.viewers}
+            value={numberWithCommas(movie.viewers)}
             />
             <MovieExplanation
             name="rating"
-            isRating={isRating}
+            isRating={true}
             rating={movie.rating}
             />
 

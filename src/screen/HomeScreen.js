@@ -7,7 +7,8 @@ import { ButtonComponent } from '../components/ButtonComponent';
 
 
 
-const HomeScreen = () => {
+const HomeScreen = (props) => {
+    const {navigation} = props;
     const [recommended, setRecommended] = useState()
     const [mostViewed, setMostViewers] = useState()
 
@@ -37,12 +38,21 @@ const HomeScreen = () => {
         }
     }
     useEffect(() => {
+        const threeRecommended = [];
         const sortedRecommended = [...movieData].sort(compareRating);
-        setRecommended(sortedRecommended);
+        for (let i = 0; i < 3; i++) {
+            threeRecommended.push(sortedRecommended[i])
+
+        };
+        setRecommended(threeRecommended);
     }, []);
     useEffect(() => {
+        const threeMostViewed = [];
         const sortedMostViewed = [...movieData].sort(compareViewers);
-        setMostViewers(sortedMostViewed);
+        for (let i = 0; i < 3; i++) {
+            threeMostViewed.push(sortedMostViewed[i])
+        }
+        setMostViewers(threeMostViewed);
     }, []);
     return(
         <View style = {styles.mainContainer}>
@@ -99,13 +109,29 @@ const HomeScreen = () => {
                         </View>
                         <View>
                         <ButtonComponent
-                            onPress={() => NavigationActivation.navigate('DetailMovie')}
+                            onPress={() => navigation.navigate('DetailMovie',
+                                {
+                                    // title: title.item,
+                                    // year: item.year,
+                                    item
+                                }
+                            )}
+                            ListEmptyComponent ={
+                                <View style = {{
+                                    alignItems: 'center'
+                                }}>
+                                    <Text> No items in This Category.</Text>
+                                </View>
+                            }
                         />
                     </View>
                     </View>
 
                 )
+
             }}
+            numColumns={number}
+            key={number}
 
         
             ListHeaderComponent={
@@ -120,21 +146,31 @@ const HomeScreen = () => {
                     <FlatList
                        data={mostViewed}
                        horizontal
-                       contentContainerStyle={{padding:8}}
-                      
+                       contentContainerStyle={{
+                            padding:8,
+                            flex: mostViewed.length === 0? 1 : null
+                       }}
                        keyExtractor={(item) => item.id}
                        renderItem={({item}) => {
-                        return (
-                            
-                            <ShowMovie 
-                    
-                            image ={{uri:item.imageLink}}
-                            title={item.title}
-                            viewers={item.viewers}
-                            />
-                            
-                        )
-                    }}
+                            return (
+                                
+                                <ShowMovie 
+                        
+                                image ={{uri:item.imageLink}}
+                                title={item.title}
+                                viewers={item.viewers}
+                                />
+                                
+                            )
+                        }} 
+                        ListEmptyComponent={
+                            <View style = {{
+                                alignItems: 'center',
+                                flex: 1
+                            }}>
+                                <Text>No Items in This Category.</Text>
+                                </View>
+                        }
                     />
                     <View style = {styles.mainCategoryContainer}>
                         <View style = {styles.categoryContainer}>
